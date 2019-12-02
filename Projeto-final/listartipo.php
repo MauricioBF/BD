@@ -28,7 +28,7 @@ var_dump($tdao);
       <td> 
         <a href="detalhestipo.php?id=<?php echo $tipo->getId(); ?>" class="btn btn-sm btn-info"> 					
           Detalhes?</a>
-        <a href="registro.php?id=<?php echo $tipo->getId(); ?>" class="btn btn-sm btn-warning">
+        <a href="insere.php?id=<?php echo $tipo->getId(); ?>" class="btn btn-sm btn-warning">
           Editar?</a>				
         <a href="excluirtipo.php?id=<?php echo $tipo->getId(); ?>" class="btn btn-sm btn-danger"> 					
           Excluir?</a>
@@ -37,7 +37,7 @@ var_dump($tdao);
     <?php } ?>
   </tbody>
 </table>
-<a href="registro.php" class="btn btn-secondary active" role="button" aria-pressed="true">Inserir Tipo</a>
+<a href="insere.php" class="btn btn-secondary active" role="button" aria-pressed="true">Inserir Tipo</a>
 
 
 
