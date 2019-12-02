@@ -4,10 +4,10 @@ require_once('back/tipoDAO.php');
 require_once('back/tipo.php');    
 $tdao = new TipoDAO();
 $lisTipo = $tdao->listar(50,0);
-var_dump($tdao);
 ?>
-
-  <h2>Lista de Tipos</h2>
+<br>
+  <h2 style="text-align:center;">Lista de Tipos</h2>
+  <div  style="width:70%; margin:0 auto;">
   <table class="table table-sm table-responsive-sm table-hover">
     <thead class="thead-dark">
         <tr>
@@ -27,18 +27,18 @@ var_dump($tdao);
       <td> <?php echo $tipo->getDescricao(); ?> </td>
       <td> 
         <a href="detalhestipo.php?id=<?php echo $tipo->getId(); ?>" class="btn btn-sm btn-info"> 					
-          Detalhes?</a>
+          Detalhes</a>
         <a href="insere.php?id=<?php echo $tipo->getId(); ?>" class="btn btn-sm btn-warning">
-          Editar?</a>				
+          Editar</a>				
         <a href="excluirtipo.php?id=<?php echo $tipo->getId(); ?>" class="btn btn-sm btn-danger"> 					
-          Excluir?</a>
+          Excluir</a>
       </td>
     </tr>
     <?php } ?>
   </tbody>
 </table>
 <a href="insere.php" class="btn btn-secondary active" role="button" aria-pressed="true">Inserir Tipo</a>
-
+  </div>
 
 
 

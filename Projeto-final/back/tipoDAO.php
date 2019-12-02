@@ -4,7 +4,7 @@ class TipoDAO{
 
 	private function criaConexao(){
 		$con = new PDO("pgsql:host=localhost;dbname=poketmon;port=5432",
-            "maker", "maker"); 
+            "postgres", "postgres"); 
 		return $con;
 	}
 
@@ -51,7 +51,6 @@ class TipoDAO{
 		$con = NULL;
 		return $tip;
 	} 
-
 	public function inserir($tip){
 		$con = $this->criaConexao();
 		$sql ="INSERT INTO tipo (nome, descricao) 

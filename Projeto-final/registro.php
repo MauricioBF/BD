@@ -2,8 +2,10 @@
   require_once('inc/header.php');
   require_once('back/pokemonDAO.php');    
   require_once('back/pokemon.php');
-  require_once('back/tipoDAO.php');
-  require_once('back/tipo.php');
+  require_once('back/tipoDAO.php');    
+  require_once('back/tipo.php');    
+  $tdao = new TipoDAO();
+  $listTipo = $tdao->listar(50,0);
   $id = isset($_GET['id']);
   if($id){
     $id = $_GET['id'];
@@ -11,38 +13,42 @@
     $pok = $pdao->buscar(intval($id));
   }
 ?>
-<h2>Cadastro Pokemons</h2>
 
-<form action="cadastrarpokemon.php" method="post">
+<a href="listarpokemon.php" class="btn btn-primary active" role="button" aria-pressed="true" style="margin-left: 20px; margin-top:20px;">  voltar 
+</a>
+<h2 style="text-align:center;">Cadastro Pokemon</h2>
+
+<form action="cadastrarpokemon.php" method="post" style="width:50%; margin:0 auto;">
   <div class="form-group">
     <label for="nome">Nome</label>
-    <input type="text" class="form-control form-control-sm" id="nome" name="nome" 
-    value="<?php if($id) echo $pok->getNome();?>" >
+    <input type="text" class="form-control form-control" id="nome" name="nome" 
+    value="<?php if($id) echo $pok->getNome();?>" required>
   </div>
   <div class="form-group">
     <label for="habilidade">Habilidade</label>
-    <input type="text" class="form-control form-control-sm" id="habilidade" name="habilidade" 
-    value="<?php if($id) echo $pok->getHabilidade();?>" >
+    <input type="text" class="form-control form-control" id="habilidade" name="habilidade" 
+    value="<?php if($id) echo $pok->getHabilidade();?>" required>
   </div>
   <div class="form-group">
     <label for="nivel">Nível</label>
-    <input type="text" class="form-control form-control-sm" id="nivel" name="nivel" 
-    value="<?php if($id) echo $pok->getNivel();?>">
+    <input type="number" min="1" max="3" class="form-control form-control" id="nivel" name="nivel" 
+    value="<?php if($id) echo $pok->getNivel();?>" required>
   </div>
   <div class="form-group">
-    <select name="tipo" class="form-control">
+    <label for="tipo">Tipo</label>
+    <?php 
+    ?>
+    <select name="tipo" class="form-control" required>
       <?php 
-      foreach($listTipo as $c){ 
+      foreach($listTipo as $t){ 
         ?>
-      <option value="<?php echo $c->getId() ?>"
-        <?php if($id&&$c->getId()===$id->getTipo()->getId()) echo "selected"?>>
-        <?php echo $c->getNome()?>
+      <option value="<?php echo $t->getId() ?>"
+        <?php 
+        if($id && $t->getId()===$pok->getTipo()->getId()) echo "selected"?>>
+        <?php echo $t->getNome()?>
       </option>
       <?php }  ?>
     </select>
-    <label for="tipo">Tipo</label>
-    <input type="text" class="form-control form-control-sm" id="tipo" name="tipo" 
-    value="<?php if($id) echo $pok->getTipo();?>">
   </div>
     <?php if($id){ ?>
     <input type="hidden" name="id" value="<?php echo $pok->getId();?>">
@@ -52,8 +58,5 @@
     <button type="reset" class="btn btn-sm btn-secondary" >limpar</button> 
   </div>
 </form>
-
-<a href="listarpokemon.php" class="btn btn-sm active" role="button" aria-pressed="true">  voltar 
-</a>
 
 <?php include_once("inc/footer.php"); ?>

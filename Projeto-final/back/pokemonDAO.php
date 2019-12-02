@@ -1,10 +1,11 @@
 <?php
-
+require_once('back/tipoDAO.php');    
+require_once('back/tipo.php');
 class PokemonDAO{
 
 	private function criaConexao(){
 		$con = new PDO("pgsql:host=localhost;dbname=poketmon;port=5432",
-            "maker", "maker"); 
+            "postgres", "postgres"); 
 		return $con;
 	}
 
@@ -38,7 +39,9 @@ class PokemonDAO{
 		$res = $stm->execute();
 		if($res ){	
 			$linha = $stm->fetch(PDO::FETCH_ASSOC);
-			$pok = new Pokemon($linha['nome'],$linha['habilidade'],$linha['nivel'],$linha['tipo']);
+			$tdao = new TipoDAO();
+			$tipo = $tdao->buscar($linha['idtipo']);
+			$pok = new Pokemon($linha['nome'],$linha['habilidade'],$linha['nivel'],$tipo);
 			$pok->setId(intval($linha['idpokemon']));
 		}
 		else{
@@ -53,18 +56,20 @@ class PokemonDAO{
 	} 
 	public function inserir($pok){
 		$con = $this->criaConexao();
-		$sql ="INSERT INTO pokemon (nome, habilidade, nivel, tipo) 
+		$sql ="INSERT INTO pokemon (nome, habilidade, nivel, idtipo) 
 			VALUES (?,?,?,?) RETURNING idpokemon"; 
 		$stm = $con->prepare($sql);
 		$stm->bindValue(1,$pok->getNome());
 		$stm->bindValue(2,$pok->getHabilidade());
-        $stm->bindValue(3,$pok->getNivel());
-        $stm->bindValue(4,$pok->getTipo());
+		$stm->bindValue(3,$pok->getNivel());
+		$tipo = $pok->getTipo();
+        $stm->bindValue(4,$tipo->getId());
 		
 		$res = $stm->execute();
-		if($res ){	
-			$linha = $res->fetch(PDO::FETCH_ASSOC);
-			$pok->setId(intval($linha['id']));
+		if($res){	
+			echo $res;
+			// $linha = $res->fetch(PDO::FETCH_ASSOC);
+			// $pok->setId(intval($linha['id']));
 		}
 		else{
 			echo $stm->queryString;
@@ -93,12 +98,12 @@ class PokemonDAO{
 	public function alterar($pok){
 		$con = $this->criaConexao();
 		$sql="UPDATE pokemon SET nome = ?, habilidade = ?, 
-		  nivel = ?, tipo = ? WHERE idpokemon = ? ";
+		nivel = ?, idtipo = ? WHERE idpokemon = ? ";
 		$stm = $con->prepare($sql);
 		$stm->bindValue(1,$pok->getNome());
 		$stm->bindValue(2,$pok->getHabilidade());
         $stm->bindValue(3,$pok->getNivel());
-        $stm->bindValue(4,$pok->getTipo());
+        $stm->bindValue(4,$pok->getTipo()->getId());
 		$stm->bindValue(5,$pok->getId(),PDO::PARAM_INT);
 		$res = $stm->execute();
 		if(!$res){

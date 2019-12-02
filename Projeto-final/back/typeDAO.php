@@ -4,7 +4,7 @@ class TipoDAO{
 
 	private function criaConexao(){
 		$con = new PDO("pgsql:host=localhost;dbname=poketmon;port=5432",
-            "maker", "maker"); 
+            "postgres", "postgres"); 
 		return $con;
 	}
 

@@ -4,10 +4,11 @@ require_once('back/pokemonDAO.php');
 require_once('back/pokemon.php');    
 $pdao = new PokemonDAO();
 $listPok = $pdao->listar(50,0);
-var_dump($pdao);
 ?>
 
-  <h2>Lista de Pokemons</h2>
+  <h2 style="text-align:center;">Lista de Pokemons</h2>
+  <div  style="width:70%; margin:0 auto;">
+
   <table class="table table-sm table-responsive-sm table-hover">
     <thead class="thead-dark">
         <tr>
@@ -31,17 +32,18 @@ var_dump($pdao);
       <td> <?php echo $pokemon->getTipo(); ?> </td>
       <td> 
         <a href="detalhespokemon.php?id=<?php echo $pokemon->getId(); ?>" class="btn btn-sm btn-info"> 					
-          Detalhes?</a>
+          Detalhes</a>
         <a href="registro.php?id=<?php echo $pokemon->getId(); ?>" class="btn btn-sm btn-warning">
-          Editar?</a>				
+          Editar</a>				
         <a href="excluirpokemon.php?id=<?php echo $pokemon->getId(); ?>" class="btn btn-sm btn-danger"> 					
-          Excluir?</a>
+          Excluir</a>
       </td>
     </tr>
     <?php } ?>
   </tbody>
 </table>
 <a href="registro.php" class="btn btn-secondary active" role="button" aria-pressed="true">Inserir Pokemon</a>
+  </div>
 
 
 
