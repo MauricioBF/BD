@@ -1,4 +1,5 @@
 <?php 
+    require_once('inc/header.php');
   require_once('back/tipoDAO.php');    
   require_once('back/tipo.php');
   $id = isset($_GET['id']);

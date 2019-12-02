@@ -1,4 +1,5 @@
 <?php 
+  require_once('inc/header.php');
   require_once('back/pokemonDAO.php');    
   require_once('back/pokemon.php');
   require_once('back/tipoDAO.php');
