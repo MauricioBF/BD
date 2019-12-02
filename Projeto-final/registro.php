@@ -27,12 +27,15 @@
     value="<?php if($id) echo $pok->getNivel();?>">
   </div>
   <div class="form-group">
-    <select name="tipo" id="tipo"><?php 
-            include_once("back/tipoDAO.php"); 
-            include_once("back/tipo.php");
-            $DAO = new TipoDAO();
-            $tip = $DAO->select(100, 0);
-            foreach($tip as $i){ ?>
+    <select name="tipo" class="form-control">
+      <?php 
+      foreach($listTipo as $c){ 
+        ?>
+      <option value="<?php echo $c->getId() ?>"
+        <?php if($id&&$c->getId()===$id->getTipo()->getId()) echo "selected"?>>
+        <?php echo $c->getNome()?>
+      </option>
+      <?php }  ?>
     </select>
     <label for="tipo">Tipo</label>
     <input type="text" class="form-control form-control-sm" id="tipo" name="tipo" 

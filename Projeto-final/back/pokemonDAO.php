@@ -4,7 +4,7 @@ class PokemonDAO{
 
 	private function criaConexao(){
 		$con = new PDO("pgsql:host=localhost;dbname=poketmon;port=5432",
-            "maker", "1234"); 
+            "postgres", "postgres"); 
             var_dump($con);
 		return $con;
 	}
